@@ -68,7 +68,8 @@ namespace WebAppMVCComboCascade.Controllers
             oReg.NumAbitanti = 1150000;
 
             listRegioni.Add(oReg);
-            return View(listRegioni[id - 1]);
+            Regione regioneSelezionata = listRegioni.First(p => p.ID == id);
+            return View(regioneSelezionata);
         }
 
         // GET: RegioneController/Create

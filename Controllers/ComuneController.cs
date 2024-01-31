@@ -73,7 +73,10 @@ namespace WebAppMVCComboCascade.Controllers
             oCom.IdProvincia = 3;
             oCom.NumAbitanti = 15000;
             listComuni.Add(oCom);
-            return View(listComuni[id - 1]);
+
+            Comune comuneSelezionato = listComuni.First(p => p.ID == id);
+
+            return View(comuneSelezionato);
         }
 
         // GET: ComuneController/Create

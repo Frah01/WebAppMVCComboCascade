@@ -66,7 +66,10 @@ namespace WebAppMVCComboCascade.Controllers
             oProv.isCapoluogo = true;
             oProv.NumAbitanti = 5000000;
             listProvince.Add(oProv);
-            return View(listProvince[id - 1]);
+
+            Provincia provinciaSelezionata = listProvince.First(p => p.ID == id);
+
+            return View(provinciaSelezionata);
         }
 
         // GET: ProvinciaController/Create
