@@ -6,70 +6,54 @@ namespace WebAppMVCComboCascade.Controllers
 {
     public class ProvinciaController : Controller
     {
-
         List<Provincia> listProvince = null;
-        Provincia oProv = null;
+        Provincia oPro = null;
+        public ProvinciaController()
+        {
+            listProvince = new List<Provincia>();
+
+            oPro = new Provincia();           //  PRIMA PROVINCIA
+
+            oPro.ID = 1;
+            oPro.IdRegione = 1;
+            oPro.Nome = "Perugia";
+            oPro.isCapoluogo = true;
+            oPro.NumAbitanti = 20000;
+
+            listProvince.Add(oPro);
+
+            oPro = new Provincia();           //  SECONDA PROVINCIA
+
+            oPro.ID = 2;
+            oPro.IdRegione = 1;
+            oPro.Nome = "Terni";
+            oPro.isCapoluogo = false;
+            oPro.NumAbitanti = 40000;
+
+            listProvince.Add(oPro);
+
+            oPro = new Provincia();           //  TERZA PROVINCIA
+
+            oPro.ID = 3;
+            oPro.IdRegione = 2;
+            oPro.Nome = "Roma";
+            oPro.isCapoluogo = true;
+            oPro.NumAbitanti = 1000000;
+
+            listProvince.Add(oPro);
+        }
         // GET: ProvinciaController
         public ActionResult Index()
         {
-            listProvince = new List<Provincia>();
-            oProv = new Provincia();
-            oProv.ID = 1;
-            oProv.Nome = "Perugia";
-            oProv.IdRegione = 1;
-            oProv.isCapoluogo = true;
-            oProv.NumAbitanti = 150000;
-            listProvince.Add(oProv);
-
-            oProv = new Provincia();
-            oProv.ID = 2;
-            oProv.Nome = "Terni";
-            oProv.IdRegione = 1;
-            oProv.isCapoluogo = false;
-            oProv.NumAbitanti = 100000;
-            listProvince.Add(oProv);
-
-            oProv = new Provincia();
-            oProv.ID = 3;
-            oProv.Nome = "Roma";
-            oProv.IdRegione = 2;
-            oProv.isCapoluogo = true;
-            oProv.NumAbitanti = 5000000;
-            listProvince.Add(oProv);
             return View(listProvince);
         }
 
         // GET: ProvinciaController/Details/5
         public ActionResult Details(int id)
         {
-            listProvince = new List<Provincia>();
-            oProv = new Provincia();
-            oProv.ID = 1;
-            oProv.Nome = "Perugia";
-            oProv.IdRegione = 1;
-            oProv.isCapoluogo = true;
-            oProv.NumAbitanti = 150000;
-            listProvince.Add(oProv);
+            oPro = listProvince.Where(provincia => provincia.ID == id).FirstOrDefault();
 
-            oProv = new Provincia();
-            oProv.ID = 2;
-            oProv.Nome = "Terni";
-            oProv.IdRegione = 1;
-            oProv.isCapoluogo = false;
-            oProv.NumAbitanti = 100000;
-            listProvince.Add(oProv);
-
-            oProv = new Provincia();
-            oProv.ID = 3;
-            oProv.Nome = "Roma";
-            oProv.IdRegione = 2;
-            oProv.isCapoluogo = true;
-            oProv.NumAbitanti = 5000000;
-            listProvince.Add(oProv);
-
-            Provincia provinciaSelezionata = listProvince.First(p => p.ID == id);
-
-            return View(provinciaSelezionata);
+            return View(oPro);
         }
 
         // GET: ProvinciaController/Create
@@ -85,6 +69,14 @@ namespace WebAppMVCComboCascade.Controllers
         {
             try
             {
+                var dicProvincia = collection.ToDictionary(kvp => kvp.Key);
+                oPro = new Provincia();
+                oPro.ID = Convert.ToInt32(dicProvincia["ID"].Value);
+                oPro.IdRegione = Convert.ToInt32(dicProvincia["IdRegione"].Value);
+                oPro.Nome = dicProvincia["Nome"].Value.ToString();
+                oPro.isCapoluogo = Convert.ToBoolean(dicProvincia["isCapoluogo"].Value);
+                oPro.NumAbitanti = Convert.ToInt32(dicProvincia["NumAbitanti"].Value);
+                listProvince.Add(oPro);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -96,7 +88,8 @@ namespace WebAppMVCComboCascade.Controllers
         // GET: ProvinciaController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            oPro = listProvince.Where(r => r.ID == id).FirstOrDefault();
+            return View(oPro);
         }
 
         // POST: ProvinciaController/Edit/5
@@ -106,6 +99,18 @@ namespace WebAppMVCComboCascade.Controllers
         {
             try
             {
+                var dicProvincia = collection.ToDictionary(kvp => kvp.Key);
+                oPro = listProvince.Where(r => r.ID == id).FirstOrDefault();
+                listProvince.Remove(oPro);
+
+                oPro = new Provincia();
+                oPro.ID = Convert.ToInt32(dicProvincia["ID"].Value);
+                oPro.IdRegione = Convert.ToInt32(dicProvincia["IdRegione"].Value);
+                oPro.Nome = dicProvincia["Nome"].Value.ToString();
+                oPro.isCapoluogo = Convert.ToBoolean(dicProvincia["isCapoluogo"].Value);
+                oPro.NumAbitanti = Convert.ToInt32(dicProvincia["NumAbitanti"].Value);
+
+                listProvince.Add(oPro);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -117,7 +122,8 @@ namespace WebAppMVCComboCascade.Controllers
         // GET: ProvinciaController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            oPro = listProvince.Where(r => r.ID == id).FirstOrDefault();
+            return View(oPro);
         }
 
         // POST: ProvinciaController/Delete/5
@@ -127,6 +133,10 @@ namespace WebAppMVCComboCascade.Controllers
         {
             try
             {
+                var dicProvincia = collection.ToDictionary(kvp => kvp.Key);
+
+                oPro = listProvince.Where(r => r.ID == id).FirstOrDefault();
+                listProvince.Remove(oPro);
                 return RedirectToAction(nameof(Index));
             }
             catch
