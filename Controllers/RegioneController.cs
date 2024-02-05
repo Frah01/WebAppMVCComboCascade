@@ -155,7 +155,7 @@ namespace WebAppMVCComboCascade.Controllers
 
                     listRegioni.Add(oReg);
 
-                    //RISERIALIZZO IN CHACHE
+                    //RISERIALIZZO IN CACHE
                     jsonRegioni = JsonConvert.SerializeObject(listRegioni);
                     HttpContext.Session.SetString(SESSIONREGIONI, jsonRegioni);
 
@@ -190,7 +190,6 @@ namespace WebAppMVCComboCascade.Controllers
         public ActionResult Delete(int id, IFormCollection collection)
         {
             string? jsonRegioni = HttpContext.Session.GetString(SESSIONREGIONI);
-
             try
             {
                 if (jsonRegioni != null)
@@ -202,7 +201,7 @@ namespace WebAppMVCComboCascade.Controllers
                     oReg = listRegioni.Where(r => r.ID == id).FirstOrDefault();
                     listRegioni.Remove(oReg);
 
-                    //RISERIALIZZO IN CAHCHE
+                    //RISERIALIZZO IN CACHE
                     jsonRegioni = JsonConvert.SerializeObject(listRegioni);
 
                     //SETTO NUOVMAENTE LA STRING JSONREGIONI

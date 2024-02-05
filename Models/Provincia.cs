@@ -4,6 +4,7 @@ namespace WebAppMVCComboCascade.Models
 {
     public class Provincia
     {
+        [Required]
         public int ID { get; set; }
 
         [Display(Name = "Provincia")]

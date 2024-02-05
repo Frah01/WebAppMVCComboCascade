@@ -4,6 +4,7 @@ namespace WebAppMVCComboCascade.Models
 {
     public class Regione
     {
+        [Required]
         public int ID { get; set; }
 
         [Display(Name = "Regione")] //MODIFICARE IL NOME VISUALIZZATO A SCHERMO
