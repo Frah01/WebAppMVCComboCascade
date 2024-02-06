@@ -97,7 +97,7 @@ namespace WebAppMVCComboCascade.Controllers
                     var dicComune = collection.ToDictionary(kvp => kvp.Key);
                     oCom = new Comune();
                     oCom.ID = Convert.ToInt32(dicComune["ID"].Value);
-                    oCom.ID = Convert.ToInt32(dicComune["IdProvincia"].Value);
+                    oCom.ID = Convert.ToInt32(dicComune["IdComune"].Value);
                     oCom.Nome = dicComune["Nome"].Value.ToString();
                     oCom.NumAbitanti = Convert.ToInt32(dicComune["NumAbitanti"].Value);
                     listComuni.Add(oCom);
@@ -122,8 +122,8 @@ namespace WebAppMVCComboCascade.Controllers
 
             if (jsonComuni != null)
             {
-                var alistComuni = (List<Comune>)JsonConvert.DeserializeObject<List<Comune>>(jsonComuni);
-                oCom = alistComuni.Where(r => r.ID == id).FirstOrDefault();
+                listComuni = (List<Comune>)JsonConvert.DeserializeObject<List<Comune>>(jsonComuni);
+                oCom = listComuni.Where(r => r.ID == id).FirstOrDefault();
             }
 
 
@@ -138,7 +138,6 @@ namespace WebAppMVCComboCascade.Controllers
             try
             {
                 string? jsonComuni = HttpContext.Session.GetString(SESSIONCOMUNI);
-
                 if (jsonComuni != null)
                 {
                     //DESERIALIZZO I DATI
@@ -151,7 +150,7 @@ namespace WebAppMVCComboCascade.Controllers
 
                     oCom = new Comune();
                     oCom.ID = Convert.ToInt32(dicComune["ID"].Value);
-                    oCom.IdComune = Convert.ToInt32(dicComune["IdProvincia"].Value);
+                    oCom.IdComune = Convert.ToInt32(dicComune["IdComune"].Value);
                     oCom.Nome = dicComune["Nome"].Value.ToString();
                     oCom.NumAbitanti = Convert.ToInt32(dicComune["NumAbitanti"].Value);
 
